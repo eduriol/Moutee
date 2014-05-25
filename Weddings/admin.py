@@ -12,7 +12,3 @@ class WeddingAdmin(admin.ModelAdmin):
     ]
     inlines = [GuestInline]
 admin.site.register(Wedding, WeddingAdmin)
-
-class UserAdmin(admin.ModelAdmin):
-    fields = ['username', 'name', 'surname', 'sex', 'email', 'password']
-admin.site.register(User, UserAdmin)

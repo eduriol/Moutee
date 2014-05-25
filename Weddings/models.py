@@ -1,14 +1,5 @@
 from django.db import models
-
-class User(models.Model):
-    def __unicode__(self):
-        return self.username
-    username = models.CharField(max_length=20)
-    name = models.CharField(max_length=50)
-    surname = models.CharField(max_length=50)
-    sex = models.BooleanField(default=True)
-    email = models.CharField(max_length=50)
-    password = models.CharField(max_length=20)
+from django.contrib.auth.models import User
 
 class Wedding(models.Model):
     def __unicode__(self):
@@ -19,7 +10,7 @@ class Wedding(models.Model):
 
 class Guest(models.Model):
     def __unicode__(self):
-        return self.name + ' ' + self.surname
+        return self.id.__str__()
     wedding = models.ForeignKey(Wedding)
     name = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
