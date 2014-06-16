@@ -1,7 +1,7 @@
 from django.contrib import admin
-from Weddings.models import *
+from Weddings.models import Wedding, Guest
 
-class GuestInline(admin.StackedInline):
+class GuestInline(admin.TabularInline):
     model = Guest
     extra = 10
 
@@ -11,4 +11,5 @@ class WeddingAdmin(admin.ModelAdmin):
         ('Date',    {'fields': ['date']}),
     ]
     inlines = [GuestInline]
+
 admin.site.register(Wedding, WeddingAdmin)
