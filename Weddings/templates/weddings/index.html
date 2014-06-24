@@ -1,0 +1,9 @@
+{% if latest_wedding_list %}
+    <ul>
+    {% for wedding in latest_wedding_list %}
+        <li><a href="/weddings/{{ wedding.id }}/">{{ wedding.id }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No weddings are available.</p>
+{% endif %}
