@@ -1,5 +1,5 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from Weddings.models import Wedding
 
@@ -9,4 +9,5 @@ def index(request):
     return render(request, 'weddings/index.html', context)
 
 def detail(request, wedding_id):
-    return HttpResponse("You're looking at wedding %s." % wedding_id)
+    wedding = get_object_or_404(Wedding, pk=wedding_id)
+    return render(request, 'weddings/detail.html', {'wedding': wedding})
