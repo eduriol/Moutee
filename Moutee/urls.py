@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'Moutee.views.home', name='home'),
     # url(r'^Moutee/', include('Moutee.foo.urls')),
-    url(r'^weddings/', include('Weddings.urls')),
+    url(r'^weddings/', include('Weddings.urls', namespace="weddings")),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

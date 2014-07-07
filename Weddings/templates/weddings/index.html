@@ -1,7 +1,7 @@
 {% if latest_wedding_list %}
     <ul>
     {% for wedding in latest_wedding_list %}
-        <li><a href="/weddings/{{ wedding.id }}/">{{ wedding.id }}</a></li>
+        <li><a href="{% url 'weddings:detail' wedding.id %}">{{ wedding.id }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
