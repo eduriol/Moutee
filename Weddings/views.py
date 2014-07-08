@@ -11,3 +11,7 @@ def index(request):
 def detail(request, wedding_id):
     wedding = get_object_or_404(Wedding, pk=wedding_id)
     return render(request, 'weddings/detail.html', {'wedding': wedding})
+
+def add_guest(request, wedding_id):
+    wedding = get_object_or_404(Wedding, pk=wedding_id)
+    return render(request, 'weddings/detail.html', {'wedding': wedding})

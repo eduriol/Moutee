@@ -11,7 +11,7 @@
 {% endfor %}
 </ul>
 
-<form action="{% url 'weddings:add' wedding.id %}" method="post">
+<form action="{% url 'weddings:add_guest' wedding.id %}" method="post">
 {% csrf_token %}
 <input type="text" name="name" />
 <input type="text" name="surname" />
