@@ -1,16 +1,22 @@
-from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
+from django.views import generic
 
 from Weddings.models import Wedding, Guest
 
-def index(request):
-    latest_wedding_list = Wedding.objects.all().order_by('-date')[:5]
-    context = {'latest_wedding_list': latest_wedding_list}
-    return render(request, 'weddings/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'weddings/index.html'
+    context_object_name = 'wedding_list'
+    def get_queryset(self):
+        return Wedding.objects.order_by('-date')
 
-def detail(request, wedding_id):
+class DetailView(generic.DetailView):
+    model = Wedding
+    template_name = 'weddings/detail.html'
+
+def guest(request, wedding_id, guest_id):
     w = get_object_or_404(Wedding, pk=wedding_id)
-    return render(request, 'weddings/detail.html', {'wedding': w})
+    g = get_object_or_404(Guest, pk=guest_id)
+    return render(request, 'weddings/guest.html', {'wedding': w, 'guest': g})
 
 def add_guest(request, wedding_id):
     w = get_object_or_404(Wedding, pk=wedding_id)

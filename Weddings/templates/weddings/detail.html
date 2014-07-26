@@ -7,7 +7,7 @@
 <h4>Guests:</h4>
 <ul>
 {% for guest in wedding.guest_set.all %}
-    <li>{{ guest.name }} {{ guest.surname }}</li>
+    <li><a href="{% url 'weddings:guest' wedding.id guest.id %}">{{ guest.name }} {{ guest.surname }}</a></li>
 {% endfor %}
 </ul>
 
@@ -18,3 +18,5 @@
     <input type="text" name="email" />
     <input type="submit" value="add" />
 </form>
+
+<a href="{% url 'weddings:index' %}"><< Back</a>
