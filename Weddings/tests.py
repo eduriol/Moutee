@@ -1,16 +1,13 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
 
+from django.core.urlresolvers import reverse
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+class WeddingIndexViewTests(TestCase):
+
+    def test_index_view_with_no_weddings(self):
         """
-        Tests that 1 + 1 always equals 2.
+        If no weddings exist, an appropriate message should be displayed.
         """
-        self.assertEqual(1 + 1, 2)
+        response = self.client.get(reverse('weddings:index'))
+        self.assertContains(response, "No weddings are available.", status_code=200)
+        self.assertQuerysetEqual(response.context['wedding_list'], [])
