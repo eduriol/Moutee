@@ -1,9 +1,8 @@
-<h1>Wedding {{ wedding.id }}</h1>
+<h1>{{ wedding }}</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <h2>{{ wedding.date }}</h2>
-<h3>{{ wedding.user1.username }} and {{ wedding.user2.username }}</h3>
 <h4>Guests:</h4>
 <ul>
 {% for guest in wedding.guest_set.all %}
