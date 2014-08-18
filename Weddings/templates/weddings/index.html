@@ -1,3 +1,7 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'weddings/style.css' %}" />
+
 {% if wedding_list %}
     <ul>
     {% for wedding in wedding_list %}
