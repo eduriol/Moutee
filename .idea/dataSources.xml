@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="1065594036">
+  <component name="DataSourceManagerImpl" format="xml" hash="2321443671">
     <data-source source="LOCAL" name="Django default" uuid="76ca4fbb-fb03-41fb-850d-295e1268e59f">
+      <driver-ref>sqlite.xerial</driver-ref>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\eduriol\PycharmProjects\Moutee\db.sqlite3</jdbc-url>
+      <jdbc-url>jdbc:sqlite:C:\Users\Eduardo\PycharmProjects\Moutee\db.sqlite3</jdbc-url>
       <libraries>
         <library>
           <url>file://$USER_HOME$/.PyCharm30/config/jdbc-drivers/xerial-sqlite-license.txt</url>
