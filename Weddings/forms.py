@@ -1,6 +1,13 @@
-from django import forms
+from django.forms import ModelForm
+from Weddings.models import Guest
+from django.utils.translation import ugettext_lazy
 
-class AddGuestForm(forms.Form):
-    name = forms.CharField(max_length=200, error_messages={'required': '*',})
-    surname = forms.CharField(max_length=200, error_messages={'required': '*',})
-    email = forms.CharField(max_length=200)
+class GuestForm(ModelForm):
+    class Meta:
+        model = Guest
+        fields = ['name', 'surname', 'email']
+        labels = {
+            'name': ugettext_lazy(''),
+            'surname': ugettext_lazy(''),
+            'email': ugettext_lazy(''),
+        }

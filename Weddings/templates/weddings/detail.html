@@ -14,11 +14,27 @@
 {% endfor %}
 </ul>
 
-<form action="{% url 'weddings:add_guest' wedding.id %}" method="post">
+<form action="{% url 'weddings:detail' wedding.id %}" method="post">
     {% csrf_token %}
-    <input type="text" name="name" />
-    <input type="text" name="surname" />
-    <input type="text" name="email" />
+    {{ form.non_field_errors }}
+    {{ form.name }}
+    {% if form.name.errors %}
+            {% for error in form.name.errors %}
+                {{ error }}
+            {% endfor %}
+    {% endif %}
+    {{ form.surname }}
+    {% if form.surname.errors %}
+            {% for error in form.surname.errors %}
+                {{ error }}
+            {% endfor %}
+    {% endif %}
+    {{ form.email }}
+    {% if form.email.errors %}
+            {% for error in form.email.errors %}
+                {{ error }}
+            {% endfor %}
+    {% endif %}
     <input type="submit" value="add" />
 </form>
 
