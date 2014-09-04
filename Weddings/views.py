@@ -20,7 +20,7 @@ def detail(request, wedding_id):
             new_guest = Guest(wedding=w, name=form.cleaned_data['name'], surname=form.cleaned_data['surname'], email=form.cleaned_data['email'])
             w.guest_set.add(new_guest)
             w.save()
-            return HttpResponseRedirect(reverse('weddings:detail', args=[w.id]))
+            return HttpResponseRedirect(reverse('weddings:detail', args=(w.id,)))
     else:
         form = GuestForm()
     return render(request, 'weddings/detail.html', {'form': form, 'wedding': w})

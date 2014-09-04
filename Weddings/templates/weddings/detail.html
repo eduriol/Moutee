@@ -7,12 +7,16 @@
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <h2>{{ wedding.date }}</h2>
-<h4>Guests:</h4>
-<ul>
-{% for guest in wedding.guest_set.all %}
-    <li><a href="{% url 'weddings:guest' wedding.id guest.id %}">{{ guest.name }} {{ guest.surname }}</a></li>
-{% endfor %}
-</ul>
+{% if wedding.guest_set.count > 0 %}
+    <h4>Guests:</h4>
+    <ul>
+    {% for guest in wedding.guest_set.all %}
+        <li><a href="{% url 'weddings:guest' wedding.id guest.id %}">{{ guest.name }} {{ guest.surname }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>There are no guests in this wedding yet.</p>
+{% endif %}
 
 <form action="{% url 'weddings:detail' wedding.id %}" method="post">
     {% csrf_token %}

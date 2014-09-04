@@ -6,6 +6,7 @@ from django.utils.timezone import utc
 import datetime
 
 from Weddings.models import Wedding, Guest
+from Weddings.forms import GuestForm
 
 def create_user(username='john_doe', password='john_doe'):
     return User.objects.create_user(username=username, password=password)
@@ -66,13 +67,45 @@ class WeddingDetailViewTests(TestCase):
         response = self.client.get(reverse('weddings:detail', args=(1,)))
         self.assertEqual(response.status_code, 404)
 
-    def test_detail_view_of_an_existing_wedding(self):
+    def test_detail_view_of_an_existing_wedding_with_no_guests_and_no_post(self):
         """
-        The detail view of an existing wedding should display correctly.
+        The detail view of this existing wedding should display correctly and show no guests.
         """
         w = create_wedding(datetime.datetime.utcnow().replace(tzinfo=utc), self.u1, self.u2)
         response = self.client.get(reverse('weddings:detail', args=(w.id,)))
-        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "There are no guests in this wedding yet.", status_code=200)
+
+    def test_detail_view_of_an_existing_wedding_with_one_guest_and_no_post(self):
+        """
+        The detail view of this existing wedding should display correctly and show one guest.
+        """
+        w = create_wedding(datetime.datetime.utcnow().replace(tzinfo=utc), self.u1, self.u2)
+        g = create_guest(wedding=w, name='John', surname='Doe', email='john_doe@foo.foo')
+        response = self.client.get(reverse('weddings:detail', args=(w.id,)))
+        self.assertContains(response, "John Doe", status_code=200)
+
+    def test_detail_view_of_an_existing_wedding_with_two_guests_and_no_post(self):
+        """
+        The detail view of this existing wedding should display correctly and show two guests.
+        """
+        w = create_wedding(datetime.datetime.utcnow().replace(tzinfo=utc), self.u1, self.u2)
+        g1 = create_guest(wedding=w, name='John', surname='Doe', email='john_doe@foo.foo')
+        g2 = create_guest(wedding=w, name='Jane', surname='Doe', email='jane_doe@foo.foo')
+        response = self.client.get(reverse('weddings:detail', args=(w.id,)))
+        self.assertContains(response, "John Doe", status_code=200)
+        self.assertContains(response, "Jane Doe", status_code=200)
+
+    # def test_detail_view_of_an_existing_wedding_with_no_guests_and_post_valid_guest(self):
+    #
+    # def test_detail_view_of_an_existing_wedding_with_one_guest_and_post_valid_guest(self):
+    #
+    # def test_detail_view_of_an_existing_wedding_with_two_guests_and_post_valid_guest(self):
+    #
+    # def test_detail_view_of_an_existing_wedding_with_no_guests_and_post_invalid_guest(self):
+    #
+    # def test_detail_view_of_an_existing_wedding_with_one_guest_and_post_invalid_guest(self):
+    #
+    # def test_detail_view_of_an_existing_wedding_with_two_guests_and_post_invalid_guest(self):
 
     def tearDown(self):
         self.u1.delete()
