@@ -111,6 +111,36 @@ class WeddingDetailViewTests(TestCase):
         self.u1.delete()
         self.u2.delete()
 
+class GuestFormTests(TestCase):
+
+    def test_valid_form_with_email(self):
+        form_data = {'name': 'John', 'surname': 'Doe', 'email': 'john_doe@foo.foo'}
+        form = GuestForm(data = form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_valid_form_without_email(self):
+        form_data = {'name': 'John', 'surname': 'Doe'}
+        form = GuestForm(data = form_data)
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_form_empty_name(self):
+        form_data = {'surname': 'Doe', 'email': 'john_doe@foo.foo'}
+        form = GuestForm(data = form_data)
+        self.assertFalse(form.is_valid())
+        self.assertEquals(form.errors['name'], [u"This field is required."])
+
+    def test_invalid_form_empty_surname(self):
+        form_data = {'name': 'John', 'email': 'john_doe@foo.foo'}
+        form = GuestForm(data = form_data)
+        self.assertFalse(form.is_valid())
+        self.assertEquals(form.errors['surname'], [u"This field is required."])
+
+    def test_invalid_form_invalid_email(self):
+        form_data = {'name': 'John', 'surname': 'Doe', 'email': 'john_doefoofoo@'}
+        form = GuestForm(data = form_data)
+        self.assertFalse(form.is_valid())
+        self.assertEquals(form.errors['email'], [u"Enter a valid email address."])
+
 class GuestDetailViewTests(TestCase):
 
     def setUp(self):
